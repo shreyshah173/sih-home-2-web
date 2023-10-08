@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+  body {
+  background-color: #f5f5dc;
+  font-family: 'Fira Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.menu-icon {
+  height: 30px;
+  width: 30px;
+  position: fixed;
+  z-index: 2;
+  left: 50px;
+  top: 30px;
+  cursor: pointer;
+}
+
+.menu-icon__line {
+  height: 2px;
+  width: 30px;
+  display: block;
+  background-color: #5ca478;
+  margin-bottom: 4px;
+  transition: transform 0.2s ease, background-color 0.5s ease;
+}
+
+.menu-icon__line-left {
+  width: 15px;
+}
+
+.menu-icon__line-right {
+  width: 15px;
+  float: right;
+}
+
+.nav {
+  position: fixed;
+  z-index: 1;
+}
+
+.nav:before,
+.nav:after {
+  content: "";
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color:#FAF9F6;
+  z-index: -1;
+  transition: transform cubic-bezier(.77, 0, .175, 1) 0.8s;
+  transform: translateX(0%) translateY(-100%);
+}
+
+.nav:after {
+  background-color: 	#Ffffff;
+  transition-delay: 0s;
+}
+
+.nav:before {
+  transition-delay: 0.1s;
+}
+
+.nav__content {
+  position: fixed;
+  top: 50%;
+  transform: translate(0%, -50%);
+  width: 100%;
+  text-align: start;
+  font-size: calc(2vw + 10px);
+  font-weight: 200;
+  cursor: pointer;
+  color: #10702d;
+  margin-left: 35%;
+}
+
+.nav__list-item {
+  position: relative;
+  display: inline-block;
+  transition-delay: 0.8s;
+  opacity: 0;
+  transform: translate(0%, 100%);
+  transition: opacity 0.2s ease, transform 0.3s ease;
+  margin-right: 25px;
+}
+
+.nav__list-item:before {
+  content: "";
+  position: absolute;
+  background: #10702d;
+  width: 20px;
+  height: 1px;
+  top: 100%;
+  transform: translate(0%, 0%);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.hov1:hover:before {
+  width:13%;
+}
+.hov2:hover:before {
+  width:21%;
+}
+.hov3:hover:before {
+  width:15.5%;
+}
+
+body.nav-active {
+  .menu-icon__line {
+    background-color:#10702d;
+    transform: translateX(0px) rotate(-45deg);
+  }
+
+  .menu-icon__line-left {
+    transform: translateX(1px) rotate(45deg);
+  }
+
+  .menu-icon__line-right {
+    transform: translateX(-2px) rotate(45deg);
+  }
+
+  .nav:before,
+  .nav:after {
+    transform: translateX(0%) translateY(0%);
+  }
+
+  .nav:after {
+    transition-delay: 0.1s;
+  }
+
+  .nav:before {
+    transition-delay: 0s;
+  }
+
+  .nav__list-item {
+    opacity: 1;
+    transform: translateX(0%);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  }
+
+  .nav__list-item:nth-child(1) {
+    transition-delay: 0.5s;
+  }
+
+  .nav__list-item:nth-child(2) {
+    transition-delay: 0.6s;
+  }
+
+  .nav__list-item:nth-child(3) {
+    transition-delay: 0.7s;
+  }
+
+  .nav__list-item:nth-child(4) {
+    transition-delay: 0.8s;
+  }
+  .nav__list-item:nth-child(5) {
+    transition-delay: 0.9s;
+  }
+}
+
+  .flip-card {
+  background-color: transparent;
+  width: 40vw;  
+  height: 38vh;  
+  perspective: 1000px;
+  border-radius: 10pt;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 40vw;
+  height: 38vh;
+  border-radius: 10pt;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 40vw;
+  height: 38vh;
+  border-radius: 10pt;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #10702d;
+  color: white;
+  text-align: center;
+  transform: rotateY(180deg);
+}
+.btn1{
+  height: 20%;
+  width: 20%;
+  padding: 1%;
+  font-size: 15pt;
+
+}
+.waviy {
+  position: relative;
+}
+.waviy span {
+  position: relative;
+  display: inline-block;
+  animation: flip 5s infinite;
+  animation-delay: calc(.10s * var(--i));
+  color: rgb(255, 255, 255);
+  font-size: 35pt;
+  margin-bottom: 5%;
+}
+@keyframes flip {
+  0%,80% {
+    transform: rotateY(360deg) 
+  }
+}
+
+
+
+        @media screen and (max-width: 320px){
+          .gif1{
+              height:160vh;
+          }
+          .img1{
+            margin-left: 20vw;
+
+          }    
+        }
+
+   
+    </style>
+</head>
+<body>
+  <section style="background-color: #096d30;height: 100vh;width: 100vw;">
+    <div class="menu-icon">
+        <span class="menu-icon__line menu-icon__line-left"></span>
+        <span class="menu-icon__line"></span>
+        <span class="menu-icon__line menu-icon__line-right"></span>
+    </div>
+      
+      <div class="nav">
+        <div class="nav__content row">
+          <ul class="nav__list">
+            <li  class="nav__list-item col-11 mb-3 hov1"><i class="fa-solid fa-house" style="color: #10702d"></i> &nbsp; Home</li>
+            <li class="nav__list-item col-11 mb-3 hov1"><i class="fa-solid fa-users" style="color: #10702d;"></i> &nbsp;   About</li>
+            <li class="nav__list-item col-11 mb-3 hov2"><i class="fa-solid fa-magnifying-glass" style="color: #10702d;"></i> &nbsp;  Identification</li>
+            <li class="nav__list-item col-11 mb-3 hov3"><i class="fa-solid fa-comment-dots" style="color: #10702d;"></i> &nbsp;   Chatbox</li>
+            <li class="nav__list-item col-11 hov3"><i class="fa-solid fa-phone" style="color: #10702d;"></i> &nbsp;   Contact</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display: flex;justify-content: center;align-items: center;height: 100vh;" class="row gif1">
+        <div class="col-lg-6">
+          <!-- <img src="blob1.png" style="height:50%;width:85%;margin-left:7%;"/> -->
+          <img class="img1" src="animationgif.gif" alt="Computer man" style="height:40%;width:65%; margin-top: 12vh;margin-left: 20%;">
+          
+        </div>
+  
+        <div class="col-lg-5" style="padding:5% 8% 0% 10%">
+            <p style=" color: rgb(255, 255, 255);font-size: 35pt;">Know your plant!</p>
+            <p style=" color: rgb(255, 255, 255); text-align: left;font-size: 20pt;">
+                Discover a groundbreaking website for precise medicinal plant identification
+                and holistic health solutions. Our user-centric interface empowers all, 
+                backed by state-of-the-art machine learning. 
+            </p>
+        </div>
+    </div>
+
+  </section>
+<section style="background-color: #f5f5dc;height: 88vh;">
+<div class="row" style="margin-top: 10vh;">
+    <div class="flip-card col-lg-6" style="margin-left: 5vw;" >
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card" style="width: 40vw;">
+            <img src="ayurveda.webp" style="height: 30vh;" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="font-size: 20pt;">What is ayurveda?</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p style="padding: 8% 5% 0% 5%;font-size:20pt;">Ayurveda, an ancient Indian system of medicine, emphasizes holistic well-being through
+            balance in mind, body, and spirit. It incorporates natural remedies,
+             diet, and lifestyle adjustments for optimal health.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6"></div>
+  </div>  
+    <br>
+  <div class="row">
+    <div class="col-lg-6"></div>
+    <div class="flip-card col-lg-6" style="margin-left: 4vw;">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card" style="width: 40vw;">
+            <img src="marketproblem.jpg" style="height: 30vh;" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="font-size: 20pt;">What is the problem with the market?</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p style="padding: 8% 5% 0% 5%;font-size:20pt;">
+            The challenges faced by consumers and medical authorities include misidentification
+            of medicinal plants, market confusion due to multiple crude drugs with the same name,
+            and a lack of awareness about plant attributes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background-color: #096d30;height: 100vh;">
+  <div style="display: flex; align-items: center;">
+    <div style="padding-top: 30vh;width: 50vw; text-align: center;color:white">
+      
+          <div class="waviy">
+            <span style="--i:1">I</span>
+            <span style="--i:2">d</span>
+            <span style="--i:3">e</span>
+            <span style="--i:4">n</span>
+            <span style="--i:5">t</span>
+            <span style="--i:6">i</span>
+            <span style="--i:7">f</span>
+            <span style="--i:8">y</span>
+            <span style="--i:9"> &nbsp; </span>
+            <span style="--i:10">y</span>
+            <span style="--i:11">o</span>
+            <span style="--i:12">u</span>
+            <span style="--i:13">r</span>
+            <span style="--i:14"> &nbsp; </span>
+            <span style="--i:15">p</span>
+            <span style="--i:16">l</span>
+            <span style="--i:17">a</span>
+            <span style="--i:18">n</span>
+            <span style="--i:19">t</span>
+           </div>
+ 
+        <p style=" color: rgb(255, 255, 255); text-align: center;font-size: 20pt;width: 30vw;margin-left: 10vw;">
+          Our AI system will help you identify your plant and herbs.
+        </p>
+        <button type="button" class="btn btn-outline-light btn1" >Find Out</button>
+    </div>
+
+        <img style="border-radius:50pt ;margin-left: 3vw; margin-top: 30vh; width:35vw; height: 40vh; justify-self: center; box-shadow: 2px 2px 15px rgb(250, 254, 255);" src="identifyimg.jpg"/>
+ 
+</div>
+
+</section>
+    
+
+</body>
+<script>
+    console.clear();
+
+const app = (() => {
+  let body;
+  let menu;
+  let menuItems;
+
+  const init = () => {
+    body = document.querySelector('body');
+    menu = document.querySelector('.menu-icon');
+    menuItems = document.querySelectorAll('.nav__list-item');
+
+    applyListeners();
+  };
+
+  const applyListeners = () => {
+    menu.addEventListener('click', () => toggleClass(body, 'nav-active'));
+  };
+
+  const toggleClass = (element, stringClass) => {
+    if (element.classList.contains(stringClass)) {
+      element.classList.remove(stringClass);
+    } else {
+      element.classList.add(stringClass);
+    }
+  };
+
+  init();
+})();
+
+function magnifyButton(button, zoom) {
+            button.addEventListener("mousemove", function (e) {
+                var x = e.clientX - button.offsetLeft;
+                var y = e.clientY - button.offsetTop;
+                button.style.backgroundPosition = -(x * zoom) + "px " + -(y * zoom) + "px";
+            });
+        }
+
+
+</script>
+</html>
